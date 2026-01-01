@@ -1,66 +1,96 @@
-# RFI Compliance Explorer
+# 📡 RFI Compliance Explorer
 
-An ITU-R aligned simulation and visualization tool for evaluating **radio-frequency interference (RFI)** impacts on space communication systems.
+[![FastAPI](https://img.shields.io/badge/Backend-FastAPI-009688?style=flat-square&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+[![React](https://img.shields.io/badge/Frontend-React-61DAFB?style=flat-square&logo=react&logoColor=black)](https://reactjs.org/)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](LICENSE)
+[![Python](https://img.shields.io/badge/Python-3.9+-3776AB?style=flat-square&logo=python&logoColor=white)](https://www.python.org/)
 
-This project combines a **physics-based RFI engine**, **probabilistic ITU compliance checks**, and an **interactive web frontend** for dynamic and statistical analysis.
+An **ITU-R aligned** simulation and visualization tool for evaluating **Radio-Frequency Interference (RFI)** impacts on space communication systems. 
+
+This project combines a physics-based RFI engine, probabilistic ITU compliance checks, and an interactive web frontend for dynamic and statistical analysis.
 
 ---
 
 ## ✨ Features
 
 ### 🔬 Backend (FastAPI + Python)
-- Dynamic time-domain RFI simulation
-- Aggregate Monte-Carlo interference analysis
-- ITU-R compliance evaluation:
-  - **SA.1157** (Deep-space services)
-  - **SA.609** (Near-Earth services)
-- Statistical exceedance and CCDF outputs
-- Clean REST API with OpenAPI docs
+* **Dynamic Simulation:** Time-domain RFI simulation based on orbital/signal geometry.
+* **Monte-Carlo Analysis:** Aggregate interference analysis for statistical reliability.
+* **ITU-R Compliance Engine:** Automated evaluation against:
+    * **SA.1157** (Deep-space services)
+    * **SA.609** (Near-Earth services)
+* **Statistical Outputs:** Full CCDF (Complementary Cumulative Distribution Function) and exceedance data.
+* **Clean REST API:** Fully documented via OpenAPI/Swagger.
 
 ### 📊 Frontend (React + Vite)
-- Interactive parameter controls
-- Time-domain **SNR loss vs time** plots
-- **CCDF plots** for probabilistic analysis
-- Side-by-side **Scenario A vs Scenario B** comparison
-- Clear compliance verdict badges
-- Dark, technical UI optimized for analysis
+* **Real-time Visualization:** Interactive time-domain **SNR loss** and **CCDF plots**.
+* **A/B Scenario Testing:** Side-by-side comparison for engineering trade-studies.
+* **Compliance Dashboard:** High-visibility verdict badges (**COMPLIANT** / **NON-COMPLIANT**).
+* **Analysis-First UI:** Dark-themed, technical interface optimized for data density.
 
 ---
 
 ## 🧠 What This Tool Is For
 
-This tool is designed for:
-- RFI impact assessment
-- ITU compliance studies
-- Spectrum sharing analysis
-- Academic research and simulation
-- Engineering trade-off exploration
+This tool is designed for spectrum engineers and researchers to perform:
+* **RFI Impact Assessment:** Quantify degradation in link budgets.
+* **ITU Compliance Studies:** Verify if a system meets international regulatory thresholds.
+* **Spectrum Sharing Analysis:** Explore how primary and secondary services coexist.
+* **Trade-off Exploration:** Test power levels, geometry, and policy thresholds.
 
-It is **not** a toy demo — results are derived from physically meaningful models and ITU-style evaluation logic.
+> [!IMPORTANT]
+> This is a professional-grade simulation tool. Results are derived from physically meaningful models and rigorous ITU-style evaluation logic.
 
 ---
+
+##🚀 Getting Started
+#1️⃣ Backend Setup
+
+# Navigate to backend
+cd backend
+# Create and activate virtual environment
+python -m venv venv
+source venv/bin/activate  # Or `venv\Scripts\activate` on Windows
+# Install dependencies
+pip install fastapi uvicorn numpy
+# Start server
+uvicorn app.main:app --reload
+
+API Docs: http://127.0.0.1:8000/docs
+---
+##2️⃣ Frontend Setup
+
+cd frontend/rfi-frontend
+npm install
+npm run dev
+
+Web UI: http://localhost:5173
+---
+##📈 Methodology & Assumptions
+
+To ensure simulation stability and focus, the following models are utilized:
+
+* Propagation: Free-space path loss (FSPL).
+
+* Statistics: Log-normal interference distribution.
+
+* Antenna Logic: ITU-style simplified off-axis models.
+
+* Focus: Atmospheric losses are ignored to isolate RFI-specific impacts.
+---
+## 🗂 Project Structure
+
+```text
 rfi-compliance-explorer/
-│
 ├── backend/
 │   └── app/
 │       ├── main.py          # FastAPI entrypoint
-│       ├── models.py        # Request / response models
+│       ├── models.py        # Request / response schemas
 │       └── simulation.py    # API-safe simulation wrappers
-│
 ├── rfi/
 │   └── scenario.py          # Core RFI physics engine
-│
 ├── frontend/
 │   └── rfi-frontend/
-│       ├── src/
-│       │   ├── App.jsx
-│       │   ├── SnrTimePlot.jsx
-│       │   ├── CcdfPlot.jsx
-│       │   ├── Comparison plots
-│       │   └── UI components
+│       ├── src/             # React components & Plotting logic
 │       └── vite.config.js
-│
 └── README.md
-
-## 🗂 Project Structure
-
