@@ -1,13 +1,18 @@
+# backend/app/models.py
+
 from pydantic import BaseModel
-from typing import Dict, Any
+from typing import List
 
-class SimulationRequest(BaseModel):
-    frequency_mhz: float
-    power_dbm: float
-    duration_s: float = 1.0
-    parameters: Dict[str, Any] = {}
 
-class SimulationResult(BaseModel):
-    compliant: bool
-    details: Dict[str, Any]
-    timestamp: str
+class Interferer(BaseModel):
+    EIRP_int_dbw: float
+    d_km: float
+    theta_off_axis_deg: float
+    sigma_db: float = 4.0
+    duty_cycle: float = 1.0
+
+
+class AggregateSimulationRequest(BaseModel):
+    band_params: dict
+    interferers: List[Interferer]
+    time_samples: int = 10000
