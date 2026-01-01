@@ -1,7 +1,13 @@
-# backend/app/models.py
-
 from pydantic import BaseModel
-from typing import List
+from typing import List, Literal
+
+
+class BandParams(BaseModel):
+    f_ghz: float
+    d_km: float
+    EIRP_dbw: float
+    G_rx_db: float
+    theta_3db: float
 
 
 class Interferer(BaseModel):
@@ -13,6 +19,7 @@ class Interferer(BaseModel):
 
 
 class AggregateSimulationRequest(BaseModel):
-    band_params: dict
+    band_params: BandParams
     interferers: List[Interferer]
+    service_type: Literal["deep-space", "near-earth"]
     time_samples: int = 10000

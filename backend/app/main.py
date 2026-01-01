@@ -15,6 +15,7 @@ app = FastAPI(
 def simulate_aggregate(req: AggregateSimulationRequest):
     return run_aggregate_simulation(
         band_params=req.band_params,
-        interferers=[i.dict() for i in req.interferers],
+        interferers=[i.model_dump() for i in req.interferers],
+        service_type=req.service_type,
         time_samples=req.time_samples,
     )
