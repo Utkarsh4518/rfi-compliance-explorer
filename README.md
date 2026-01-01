@@ -59,3 +59,9 @@ rfi-compliance-explorer/
 │       ├── src/             # React components & Plotting logic
 │       └── vite.config.js
 └── README.md
+
+---
+
+## 🚀 Getting Started
+
+### 1️⃣ Backend Setup
