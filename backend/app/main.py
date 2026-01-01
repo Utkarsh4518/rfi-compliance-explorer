@@ -1,8 +1,8 @@
 # backend/app/main.py
 
 from fastapi import FastAPI
-from app.models import AggregateSimulationRequest
-from app.simulation import run_aggregate_simulation
+from .models import AggregateSimulationRequest
+from .simulation import run_aggregate_simulation
 
 app = FastAPI(
     title="RFI Compliance Explorer API",
