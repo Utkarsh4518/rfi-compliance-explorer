@@ -174,3 +174,60 @@ def run_multi_entry_rfi_scenario(
     }
 
     return results
+
+def run_dynamic_rfi_scenario(
+    band_params: Dict[str, Any],
+    interferer_params: Dict[str, Any],
+    time_s: np.ndarray,
+):
+    """
+    Time-varying RFI scenario.
+    Returns SNR loss as a function of time.
+    """
+
+    f_ghz = band_params["f_ghz"]
+    d_km = band_params["d_km"]
+    G_rx = band_params["G_rx_db"]
+    theta_3db = band_params["theta_3db"]
+
+    # Baseline carrier and noise
+    N_dbw = compute_thermal_noise_dbw(T_SYS_K, BW_HZ)
+    L_fs_db = free_space_path_loss_db(f_ghz, d_km)
+
+    C_dbw = (
+        band_params["EIRP_dbw"]
+        - L_fs_db
+        - L_ATM_DB_NOMINAL
+        + G_rx
+    )
+
+    baseline_snr_db = C_dbw - N_dbw
+
+    snr_loss_time = []
+
+    for t in time_s:
+        theta_t = interferer_params["theta0_deg"] + interferer_params["omega_deg_s"] * t
+        d_t = interferer_params["d0_km"] + interferer_params["v_km_s"] * t
+
+        L_fs_int = free_space_path_loss_db(f_ghz, d_t)
+
+        G_rx_off = compute_off_axis_gain_s1528_db(
+            g_max=G_rx,
+            theta_deg=theta_t,
+            theta_3db=theta_3db,
+        )
+
+        I_dbw = compute_interference_power_dbw(
+            eirp_int_dbw=interferer_params["EIRP_int_dbw"],
+            l_fs_int_db=L_fs_int,
+            l_atm_db=0.0,
+            g_rx_off_axis_db=G_rx_off,
+        )
+
+        snr_with_i = compute_snr_with_interference_db(
+            C_dbw, N_dbw, I_dbw
+        )
+
+        snr_loss_time.append(baseline_snr_db - snr_with_i)
+
+    return np.array(snr_loss_time)

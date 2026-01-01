@@ -23,3 +23,21 @@ class AggregateSimulationRequest(BaseModel):
     interferers: List[Interferer]
     service_type: Literal["deep-space", "near-earth"]
     time_samples: int = 10000
+
+from typing import Literal
+
+class DynamicSimulationRequest(BaseModel):
+    band_params: BandParams
+
+    interferer: dict
+    # must contain:
+    # - EIRP_int_dbw
+    # - d0_km
+    # - v_km_s
+    # - theta0_deg
+    # - omega_deg_s
+
+    service_type: Literal["deep-space", "near-earth"]
+
+    duration_s: float
+    time_step_s: float
