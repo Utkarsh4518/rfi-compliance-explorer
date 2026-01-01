@@ -40,43 +40,6 @@ This tool is designed for spectrum engineers and researchers to perform:
 
 > [!IMPORTANT]
 > This is a professional-grade simulation tool. Results are derived from physically meaningful models and rigorous ITU-style evaluation logic.
-
----
-
-##🚀 Getting Started
-#1️⃣ Backend Setup
-
-# Navigate to backend
-cd backend
-# Create and activate virtual environment
-python -m venv venv
-source venv/bin/activate  # Or `venv\Scripts\activate` on Windows
-# Install dependencies
-pip install fastapi uvicorn numpy
-# Start server
-uvicorn app.main:app --reload
-
-API Docs: http://127.0.0.1:8000/docs
----
-##2️⃣ Frontend Setup
-
-cd frontend/rfi-frontend
-npm install
-npm run dev
-
-Web UI: http://localhost:5173
----
-##📈 Methodology & Assumptions
-
-To ensure simulation stability and focus, the following models are utilized:
-
-* Propagation: Free-space path loss (FSPL).
-
-* Statistics: Log-normal interference distribution.
-
-* Antenna Logic: ITU-style simplified off-axis models.
-
-* Focus: Atmospheric losses are ignored to isolate RFI-specific impacts.
 ---
 ## 🗂 Project Structure
 
